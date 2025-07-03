@@ -1,0 +1,310 @@
+// style.scss
+
+// Variables
+$primary-color: #fec503;
+$dark-color: #333;
+$light-gray: #777;
+$bg-light: #f8f9fa;
+$white: #fff;
+$black: #000;
+
+// Typography
+$font-main: 'Montserrat', sans-serif;
+
+// Breakpoints
+$mobile: 768px;
+$tablet: 1024px;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+@mixin section-padding {
+    padding: 100px 0;
+}
+
+// Global Reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-main;
+    line-height: 1.6;
+    color: $dark-color;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+// Navigation Bar
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba($black, 0.9);
+    z-index: 1000;
+    padding: 20px 0;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.logo {
+    font-size: 28px;
+    color: $primary-color;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+
+    a {
+        color: $white;
+        text-decoration: none;
+        font-size: 14px;
+        @include transition(color);
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+
+    // Mobile responsive
+    @media (max-width: $mobile) {
+        display: none;
+    }
+}
+
+// Hero Section
+.hero {
+    height: 100vh;
+    background: url('hero-bg.jpg') center/cover;
+    background-color: $dark-color;
+    @include flex-center;
+    text-align: center;
+    position: relative;
+
+    // Dark overlay
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($black, 0.5);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    color: $white;
+
+    .subtitle {
+        font-size: 40px;
+        font-style: italic;
+        margin-bottom: 10px;
+
+        @media (max-width: $mobile) {
+            font-size: 28px;
+        }
+    }
+
+    .hero-title {
+        font-size: 75px;
+        font-weight: bold;
+        margin-bottom: 40px;
+
+        @media (max-width: $mobile) {
+            font-size: 50px;
+        }
+    }
+}
+
+// Call to Action Button
+.cta-button {
+    background: $primary-color;
+    color: $white;
+    border: none;
+    padding: 20px 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    @include transition(transform);
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+}
+
+// Shared section styles
+%section-base {
+    @include section-padding;
+}
+
+.section-title {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: $light-gray;
+    font-style: italic;
+    margin-bottom: 80px;
+}
+
+// Services Section
+.services {
+    @extend %section-base;
+    background: $bg-light;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.service-item {
+    text-align: center;
+
+    .service-icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+        border: 3px solid $primary-color;
+        border-radius: 50%;
+        @include flex-center;
+        font-size: 50px;
+        color: $primary-color;
+    }
+
+    h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: $light-gray;
+        line-height: 1.8;
+    }
+}
+
+// Portfolio Section
+.portfolio {
+    @extend %section-base;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    background: $bg-light;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        @include transition(transform);
+    }
+
+    &:hover img {
+        transform: scale(1.1);
+    }
+}
+
+.portfolio-info {
+    padding: 30px;
+    text-align: center;
+
+    h4 {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    p {
+        color: $light-gray;
+        font-style: italic;
+    }
+}
+
+// Footer
+.footer {
+    background: $dark-color;
+    color: $white;
+    padding: 30px 0;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media (max-width: $mobile) {
+            flex-direction: column;
+            text-align: center;
+            gap: 20px;
+        }
+    }
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+
+    a {
+        width: 40px;
+        height: 40px;
+        background: darken($dark-color, 10%);
+        border-radius: 50%;
+        @include flex-center;
+        color: $white;
+        text-decoration: none;
+        @include transition(background);
+
+        &:hover {
+            background: $primary-color;
+        }
+    }
+}
+
+// Utility classes
+.text-center {
+    text-align: center;
+}
+
+// Margin utilities
+.mt-1 { margin-top: 10px; }
+.mt-2 { margin-top: 20px; }
+.mt-3 { margin-top: 30px; }
+
+.mb-1 { margin-bottom: 10px; }
+.mb-2 { margin-bottom: 20px; }
+.mb-3 { margin-bottom: 30px; }
